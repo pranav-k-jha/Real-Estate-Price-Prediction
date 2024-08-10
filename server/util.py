@@ -7,11 +7,14 @@ __locations = None
 __data_columns = None
 __model = None
 
-def load_saved_artifacts(artifacts_path):
-    """Loads saved artifacts from the specified path."""
+def load_saved_artifacts():
+    """Loads saved artifacts from the artifacts folder within the server directory."""
     global __locations, __data_columns, __model
 
     try:
+        # Assuming the artifacts folder is in the same directory as this script
+        artifacts_path = "./artifacts"
+
         with open(f"{artifacts_path}/columns.json", "r") as f:
             data = json.load(f)
             __data_columns = data['data_columns']
@@ -53,14 +56,3 @@ def get_estimated_price(location, sqft, bhk, bath):
 def get_location_names():
     """Returns a list of location names."""
     return __locations
-
-if __name__ == '__main__':
-    # Replace with the actual path to your artifacts
-    artifacts_path = "./artifacts"
-    load_saved_artifacts(artifacts_path)
-    
-    print(get_location_names())
-    print(get_estimated_price('1st Phase JP Nagar', 1000, 3, 3))
-    print(get_estimated_price('1st Phase JP Nagar', 1000, 2, 2))
-    print(get_estimated_price('Kalhalli', 1000, 2, 2))  # other location
-    print(get_estimated_price('Ejipura', 1000, 2, 2))  # other location
